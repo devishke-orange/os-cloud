@@ -27,7 +27,7 @@ fi
 
 answer=""
 new_version=""
-upgrade_dir="${OHRM_HOME_DIR}/.upgrade/$(echo $RANDOM | md5sum | head -c 10)"
+upgrade_dir="$OHRM_HOME_DIR/.upgrade/$(echo $RANDOM | md5sum | head -c 10)"
 KEY_PATH="/var/www/html/lib/confs/cryptokeys/key.ohrm"
 
 check_version() {
@@ -36,12 +36,16 @@ check_version() {
 
     new_version=$(curl --silent "$UPDATE_URL" | grep "    image: orangehrm/orangehrm:" | sed 's/    image: orangehrm\/orangehrm://')
 
-    if [[ "${OHRM_VERSION}" = "${new_version}" ]]; then
+    if [[ "$OHRM_VERSION" = "$new_version" ]]; then
         printf "\n%bOrangeHRM is up to date!%b\n" "$GC" "$EC" >&3
         exit 0;
     fi
 
-    printf "\n%bA new version of OrangeHRM is available%b\n" "$GC" "$EC" >&3
+    printf "\n%bOrangeHRM $new_version is now available!%b\n" "$GC" "$EC" >&3
+
+    if (( $( echo "$new_version>=$NEW_LICENSE_VERSION" | bc -l ) )); then
+      ohrm_print "NOTE: The license of OrangeHRM Starter has been upgraded from GPLv2 to GPLv3.\n"
+    fi
 }
 
 upgrader_confirm()  {
