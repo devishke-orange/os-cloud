@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # OrangeHRM AWS CLI assists AWS Marketplace Subscribers
 # with managing their installation of OrangeHRM Starter
 # Copyright (C) 2024 OrangeHRM Inc., http://www.orangehrm.com
@@ -121,7 +119,8 @@ print_installer_input_prompt() {
 get_license_agreement() {
 	print_installer_input_prompt "Please read and agree to the following license" "press enter"
 	read -r
-	less -P "Press ENTER to read more, press q to quit" "$ASSET_DIR/license.txt" >&3
+	docker cp orangehrm:/var/www/html/LICENSE "$OHRM_HOME_DIR"
+	less -P "Press ENTER to read more, press q to quit" "$OHRM_HOME_DIR/LICENSE" >&3
 	tput cuu1 >&3
 	tput cuu1 >&3
 	tput el >&3
@@ -238,7 +237,6 @@ write_install_file() {
 	version=$(grep "    image: orangehrm/orangehrm:" "$COMPOSE_FILE" | sed 's/    image: orangehrm\/orangehrm://')
 
 	{
-		printf "#!/bin/bash\n\n"
 		printf "# DO NOT DELETE THIS FILE!\n"
 		printf "# This file contains information about the installed version of OrangeHRM\n\n"
 		printf "export OHRM_VERSION=%s" "$version"

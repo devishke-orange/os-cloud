@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # OrangeHRM AWS CLI assists AWS Marketplace Subscribers
 # with managing their installation of OrangeHRM Starter
 # Copyright (C) 2024 OrangeHRM Inc., http://www.orangehrm.com
@@ -132,7 +130,6 @@ upgrade_ohrm() {
 
 update_install_file() {
     {
-        printf "#!/bin/bash\n\n"
         printf "# DO NOT DELETE THIS FILE!\n"
         printf "# This file contains information about the installed version of OrangeHRM\n\n"
         printf "export OHRM_VERSION=%s" "$new_version"
