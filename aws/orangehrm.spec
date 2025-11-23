@@ -73,6 +73,7 @@ chown -R ec2-user:ec2-user %{buildroot}/%{_datadir}/orangehrm
 %changelog
 * Sun Nov 23 2025 devishke-orange <devishke@orangehrm.com> - 0.0.7-7.amzn2023
 - Bumped OrangeHRM to 5.8 and MariaDB to 10.11.15
+- Updated install script
 * Fri Jul 19 2024 devishke-orange <devishke@orangehrm.com> - 0.0.6-6.amzn2023
 - Bumped OrangeHRM, MariaDB version
 * Wed Mar 27 2024 devishke-orange <devishke@orangehrm.com> - 0.0.5-5.amzn2023
